@@ -1,11 +1,11 @@
 const statusButton = document.querySelector("button");
 const pets = document.querySelector(".all-pets");
 
-const createPet = function (name, species) {
+const createPet = function (name, species, tiredness) {
 const pet = {
     name: name,
     species: species,
-    isTired: 5,
+    isTired: tiredness,
     sleep: function() {
         console.log(`${this.name} needs a nap. Zzz...`);
         this.isTired = 1;
@@ -22,11 +22,11 @@ const pet = {
     return pet;
 };
 
-const sora = createPet("Sora", "ferret");
-const clover = createPet("Clover", "rabbit");
-const baxter = createPet("Baxter", "hamster");
-const cleo = createPet("Cleo", "rat");
-const francine = createPet("Francine", "turtle");
+const sora = createPet("Sora", "ferret", 5);
+const clover = createPet("Clover", "rabbit", 8);
+const baxter = createPet("Baxter", "hamster", 5);
+const cleo = createPet("Cleo", "rat", 5);
+const francine = createPet("Francine", "turtle", 9);
 
 // console.log(sora, clover, baxter, cleo, francine);
 
@@ -34,3 +34,28 @@ const francine = createPet("Francine", "turtle");
 // baxter.play();
 
 // console.log(clover, baxter);
+
+const allPets = [sora, clover, baxter, cleo, francine];
+
+// console.log(allPets);
+
+const showPets = function(petArray) {
+pets.innerHTML = "";
+
+for (let pet of petArray) {
+    let status = "ready to play!";
+   
+    if(pet.isTired >= 7) {
+        status = "sleeping.";
+    }
+
+    const li = document.createElement("li");
+    li.innerHTML = `<span class="pet-name"> ${pet.name}</span> the ${pet.species} is ${status}`;
+    pets.append(li);
+}
+};
+
+
+statusButton.addEventListener("click", function () {
+    showPets(allPets);
+});
